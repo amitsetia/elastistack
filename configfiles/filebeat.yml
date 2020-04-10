@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/apache2/*
+  fields:
+   service_name: 'apachelxc'
+  fields_under_root: true
+  tail_files: true
+  tags: ["apache"]
+
+
+output.logstash:
+  # The Logstash host
+ hosts: ["localhost:5044"]
