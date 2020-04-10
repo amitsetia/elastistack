@@ -1,15 +1,26 @@
+
 filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /var/log/apache2/*
+    - /var/log/nginx/*.log
   fields:
-   service_name: 'apachelxc'
+    service_name: nginx
+  fields_under_root: true
+  tail_files: true 
+  tags: ["nginx", "web-tier"]
+
+
+- type: log
+  enabled: true
+  paths:
+    - /var/log/haproxy.log
+  fields:
+    service_name: haproxy
   fields_under_root: true
   tail_files: true
-  tags: ["apache"]
-
+  tags: ["haproxy"]
 
 output.logstash:
-  # The Logstash host
- hosts: ["localhost:5044"]
+  # The Logstash hosts
+  hosts: ["10.0.0.154:5044"]
